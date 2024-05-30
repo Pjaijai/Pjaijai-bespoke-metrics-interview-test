@@ -1,3 +1,11 @@
+## What I have done
+
+- Implemented functionality for searching by name, filtering by rating, and sorting by name.
+- Implemented features for creating, editing, and searching members.
+- Implemented validation checks on the create and edit forms.
+- Utilized debounce to prevent excessive API requests when typing member names.
+- Utilized React memoization to memoize the Table and Row components, reducing unnecessary rendering.
+
 ## Available Scripts
 
 In the project directory, you can run:
@@ -12,23 +20,25 @@ This starts the server
 
 ## Your Task
 
-
 Enhance this simple club member index to improve it UI/UX and implement additional functionality currently missing.
 You can install/edit anything you want to accomplish the assigned goals. You have no obligation to use any of the existing components that are provided. Please accomplish as much of the below as you can within the allotted time.
 
 To create an organized and clear interview technical task for a frontend developer, you can group the requirements based on the specific skills and areas of knowledge you want to test. Here's how you could structure the requirements:
 
 ### React
+
 1. **Add the missing create/edit/delete functionality**
 2. **Ensure there are no unnecessary re-renders using the available React features to accomplish this**
 3. **Implement react-router as needed**
 
 ### API and Data Management
+
 1. **Implement filtering through the server by the "name" field**
 2. **Implement filtering by the "rating" and "activities" fields**
 3. **Implement sorting by the "name" and "activities" field**
 
 ### Frontend Design and User Experience
+
 1. **Allow for filtering using the search bar**
 2. **Improve the styling of the page**
 
