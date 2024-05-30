@@ -3,7 +3,7 @@ import useGetMembers from "./useGetMembers"
 
 const useSearchMembers = () => {
   const [name, setName] = useState("")
-
+  const [debouncedName, setDebouncedName] = useState("")
   const [members, setMembers] = useState()
   const [activities, setActivities] = useState("")
   const [minRating, setMinRaring] = useState(0)
@@ -16,7 +16,7 @@ const useSearchMembers = () => {
   }, [])
 
   const { data, error, loading, refetch } = useGetMembers({
-    name,
+    name: debouncedName,
     onSuccess,
   })
 
@@ -118,6 +118,17 @@ const useSearchMembers = () => {
     }
     return sortedMembers
   }, [maxRating, members, minRating, selectedActivities, sorting])
+
+  // debounce to 1 second
+  useEffect(() => {
+    const handler = setTimeout(() => {
+      setDebouncedName(name)
+    }, 1000)
+
+    return () => {
+      clearTimeout(handler)
+    }
+  }, [name])
 
   return {
     data: filteredMembers,
