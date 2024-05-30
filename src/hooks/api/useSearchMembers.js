@@ -15,7 +15,7 @@ const useSearchMembers = () => {
     setMembers(data)
   }, [])
 
-  const { data, error, loading } = useGetMembers({
+  const { data, error, loading, refetch } = useGetMembers({
     name,
     onSuccess,
   })
@@ -136,6 +136,7 @@ const useSearchMembers = () => {
     selectedActivities,
     handleSortingChange,
     sorting,
+    refetch,
   }
 }
 

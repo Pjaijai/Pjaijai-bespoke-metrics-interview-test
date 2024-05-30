@@ -40,7 +40,11 @@ const useGetMembers = ({ name, onSuccess, onError, onSettle }) => {
     fetchData()
   }, [fetchData, name])
 
-  return { data, error, loading }
+  const refetch = () => {
+    fetchData()
+  }
+
+  return { data, error, loading, refetch }
 }
 
 export default useGetMembers
