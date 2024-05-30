@@ -1,8 +1,8 @@
-import React from "react"
+import React, { memo } from "react"
 import { TH, Table, Thead } from "./style"
 import { Row } from "../row"
 
-const MemberTable = ({ loading, data, onEditClick }) => {
+const MemberTable = memo(({ loading, data, onEditClick }) => {
   return (
     <Table>
       <Thead>
@@ -27,6 +27,6 @@ const MemberTable = ({ loading, data, onEditClick }) => {
       {loading && !data.length > 0 && "Cannot found member"}
     </Table>
   )
-}
+})
 
 export default MemberTable
