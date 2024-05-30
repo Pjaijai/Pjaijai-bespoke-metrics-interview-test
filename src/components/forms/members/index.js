@@ -34,8 +34,6 @@ const MemberForm = ({ isEdit, onSuccess, initialValues }) => {
         activities: splittedActivitiesArray,
       }
 
-      const create_res = await createMember(data)
-
       if (isEdit) {
         const edit_res = await editMember(data, initialValues.id)
       } else {
