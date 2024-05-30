@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React, { useCallback, useState } from "react"
 
 import useSearchMembers from "../../hooks/api/useSearchMembers"
 
@@ -64,7 +64,7 @@ const MemberList = () => {
   }
 
   // Edit member
-  const handleEditMemberClick = (values) => {
+  const handleEditMemberClick = useCallback((values) => {
     const { id, age, activities, name, rating } = values
     const activitiesString = activities.join(" ")
 
@@ -76,7 +76,7 @@ const MemberList = () => {
       rating,
     })
     setIsEditMemberModalOpen(true)
-  }
+  }, [])
 
   const onEditMemberSuccess = () => {
     setIsCreateMemberModalOpen(false)
