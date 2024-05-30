@@ -2,12 +2,21 @@ import React, { useState } from "react"
 
 import useSearchMembers from "../../hooks/api/useSearchMembers"
 
-import { ActivitiesContainer, Block, Container, Filters } from "./style"
+import CreateMemberModal from "../modals/create-member"
+import EditMemberModal from "../modals/edit-member"
+
+import {
+  ActivitiesContainer,
+  AddButton,
+  Block,
+  Container,
+  Filters,
+  Header,
+} from "./style"
 import SortMemberSelect from "../selects/sort-member"
 import TextInput from "../inputs/text"
 import NumberInput from "../inputs/number"
 import MemberTable from "../tables/member"
-import MemberForm from "../forms/members"
 
 const MemberList = () => {
   const EDIT_MEMBER_INITIAL_VALUES = {
@@ -17,6 +26,8 @@ const MemberList = () => {
     age: null,
     activities: null,
   }
+  const [isCreateMemberModalOpen, setIsCreateMemberModalOpen] = useState(false)
+  const [isEditMemberModalOpen, setIsEditMemberModalOpen] = useState(false)
   const [editInitialValues, setEditInitialValues] = useState(
     EDIT_MEMBER_INITIAL_VALUES
   )
@@ -33,25 +44,27 @@ const MemberList = () => {
     activityOptions,
     handleActivityChange,
     selectedActivities,
+    refetch,
     handleSortingChange,
     sorting,
-    refetch,
   } = useSearchMembers()
 
+  // Create member
+  const handleCreateMemberClick = () => {
+    setIsCreateMemberModalOpen(true)
+  }
+
   const onCreateMemberSuccess = () => {
+    setIsCreateMemberModalOpen(false)
     refetch()
   }
 
-  const onEditMemberSuccess = () => {
-    setEditInitialValues({
-      EDIT_MEMBER_INITIAL_VALUES,
-    })
-
-    refetch()
+  const onCreateMemberModelClose = () => {
+    setIsCreateMemberModalOpen(false)
   }
 
+  // Edit member
   const handleEditMemberClick = (values) => {
-    console.log(124, values)
     const { id, age, activities, name, rating } = values
     const activitiesString = activities.join(" ")
 
@@ -62,17 +75,38 @@ const MemberList = () => {
       name,
       rating,
     })
+    setIsEditMemberModalOpen(true)
+  }
+
+  const onEditMemberSuccess = () => {
+    setIsCreateMemberModalOpen(false)
+    setEditInitialValues({
+      EDIT_MEMBER_INITIAL_VALUES,
+    })
+
+    refetch()
+    setIsEditMemberModalOpen(false)
+  }
+
+  const onEditMemberModelClose = () => {
+    setIsEditMemberModalOpen(false)
   }
 
   return (
     <Block>
-      <h1>My Club's Members</h1>
-      <MemberForm onSuccess={onCreateMemberSuccess} isEdit={false} />
-      <MemberForm
-        onSuccess={onEditMemberSuccess}
-        isEdit={true}
-        initialValues={editInitialValues}
+      <CreateMemberModal
+        isOpen={isCreateMemberModalOpen}
+        onSuccess={onCreateMemberSuccess}
+        onClose={onCreateMemberModelClose}
       />
+      <EditMemberModal
+        isOpen={isEditMemberModalOpen}
+        onSuccess={onEditMemberSuccess}
+        initialValues={editInitialValues}
+        onClose={onEditMemberModelClose}
+      />
+      <h1>My Club's Members</h1>
+
       <Filters>
         <TextInput
           placeholder={"Search for a member"}
@@ -113,6 +147,9 @@ const MemberList = () => {
       </ActivitiesContainer>
 
       <Container>
+        <Header>
+          <AddButton onClick={handleCreateMemberClick}>+ member</AddButton>
+        </Header>
         <MemberTable
           data={data}
           loading={loading}

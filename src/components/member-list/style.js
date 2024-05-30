@@ -23,4 +23,29 @@ const ActivitiesContainer = styled.div`
   width: 100%;
 `
 
-export { Block, Filters, ActivitiesContainer }
+const AddButton = styled.button`
+  font-size: 1rem;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  border-radius: 5px;
+`
+
+const Container = styled.div`
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  width: 100%;
+  padding: 1rem;
+`
+
+const Header = styled.div`
+  display: flex;
+  width: 80%;
+  justify-content: flex-end;
+  margin-bottom: 1rem;
+`
+
+export { Block, Filters, ActivitiesContainer, AddButton, Container, Header }
